@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Todo Task Reminder</string>
+
+    <!--
+    Activity Labels
+    -->
+    <string name="MainActivityLabel">Yet to be named</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+</resources>
