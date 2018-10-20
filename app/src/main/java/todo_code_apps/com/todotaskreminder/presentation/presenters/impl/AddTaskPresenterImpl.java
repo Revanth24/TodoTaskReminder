@@ -13,22 +13,24 @@ import todo_code_apps.com.todotaskreminder.threading.MainThread;
 /**
  * Created by Revanth K on 19/10/18.
  */
-public class AddTaskPresenterImpl<V extends AddTaskPresenter.View> extends AbstractPresenter implements
-        AddTaskPresenter<V>, AddTaskInteractor.AddTaskCallback {
+public class AddTaskPresenterImpl extends AbstractPresenter implements
+        AddTaskPresenter, AddTaskInteractor.AddTaskCallback {
 
-    private V mView;
+    private AddTaskPresenter.View mView;
+    private Future mFuture;
+    private AddTaskInteractor mAddTaskInteractor;
 
-    Future mFuture;
-    AddTaskInteractor mAddTaskInteractor;
-
-    public AddTaskPresenterImpl(Executor executor, MainThread mainThread) {
+    public AddTaskPresenterImpl(Executor executor, MainThread mainThread, AddTaskPresenter.View view) {
         super(executor, mainThread);
+        mView = view;
     }
 
     @Override
     public void onTaskAdded() {
-        mView.hideProgress();
-        mView.onTaskAdded();
+        if(mView != null) {
+            mView.hideProgress();
+            mView.onTaskAdded();
+        }
     }
 
     @Override
@@ -38,7 +40,9 @@ public class AddTaskPresenterImpl<V extends AddTaskPresenter.View> extends Abstr
 
         mFuture = mAddTaskInteractor.execute();
 
-        mView.showProgress();
+        if(mView != null) {
+            mView.showProgress();
+        }
     }
 
     @Override
@@ -50,7 +54,10 @@ public class AddTaskPresenterImpl<V extends AddTaskPresenter.View> extends Abstr
     public void pause() {
         mAddTaskInteractor.cancel(mFuture);
         mFuture = null;
-        mView.hideProgress();
+
+        if(mView != null) {
+            mView.hideProgress();
+        }
     }
 
     @Override
@@ -66,11 +73,6 @@ public class AddTaskPresenterImpl<V extends AddTaskPresenter.View> extends Abstr
     @Override
     public void onError(String message) {
         mView.showError(message);
-    }
-
-    @Override
-    public void attachView(V view) {
-        mView = view;
     }
 
     @Override

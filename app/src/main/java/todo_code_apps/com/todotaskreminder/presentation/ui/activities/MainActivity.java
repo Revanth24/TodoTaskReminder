@@ -33,9 +33,7 @@ public class MainActivity extends AppCompatActivity implements AddTaskPresenter.
 
         linlaHeaderProgress = (LinearLayout) findViewById(R.id.linlaHeaderProgress);
 
-        mPresenter = new AddTaskPresenterImpl(ThreadExecutor.getInstance(), MainThreadImpl.getInstance());
-
-        mPresenter.attachView(this);
+        mPresenter = new AddTaskPresenterImpl(ThreadExecutor.getInstance(), MainThreadImpl.getInstance(), this);
 
         mPresenter.addNewTask();
     }
