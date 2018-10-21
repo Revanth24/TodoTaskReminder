@@ -1,6 +1,7 @@
 package todo_code_apps.com.todotaskreminder.presentation.presenters.impl;
 
 
+import java.util.Date;
 import java.util.concurrent.Future;
 
 import todo_code_apps.com.todotaskreminder.domain.executor.base.Executor;
@@ -34,9 +35,22 @@ public class AddTaskPresenterImpl extends AbstractPresenter implements
     }
 
     @Override
-    public void addNewTask() {
+    public void onTaskAddFailed(String errMsg) {
+        if(mView != null) {
+            mView.hideProgress();
+        }
+        onError(errMsg);
+    }
 
-        mAddTaskInteractor = new AddTaskInteractorImpl(mExecutor, mMainThread, this);
+    @Override
+    public void addNewTask(String title, String description, Date reminderDate) {
+
+        mAddTaskInteractor = new AddTaskInteractorImpl(mExecutor,
+                mMainThread,
+                this,
+                title,
+                description,
+                reminderDate);
 
         mFuture = mAddTaskInteractor.execute();
 

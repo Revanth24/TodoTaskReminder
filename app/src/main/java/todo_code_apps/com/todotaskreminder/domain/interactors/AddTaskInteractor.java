@@ -9,5 +9,6 @@ public interface AddTaskInteractor extends Interactor{
 
     interface AddTaskCallback {
         void onTaskAdded();
+        void onTaskAddFailed(String errMsg);
     }
 }

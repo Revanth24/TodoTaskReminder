@@ -1,6 +1,8 @@
 package todo_code_apps.com.todotaskreminder.presentation.presenters;
 
 
+import java.util.Date;
+
 import todo_code_apps.com.todotaskreminder.presentation.presenters.base.BasePresenter;
 import todo_code_apps.com.todotaskreminder.presentation.ui.BaseView;
 
@@ -13,6 +15,6 @@ public interface AddTaskPresenter extends BasePresenter {
         void onTaskAdded();
     }
 
-    void addNewTask();
+    void addNewTask(String title, String description, Date reminderDate);
 
 }

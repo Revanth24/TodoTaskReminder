@@ -4,9 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import java.util.Calendar;
 
 import todo_code_apps.com.todotaskreminder.R;
 import todo_code_apps.com.todotaskreminder.domain.executor.impl.ThreadExecutor;
@@ -17,7 +18,7 @@ import todo_code_apps.com.todotaskreminder.threading.impl.MainThreadImpl;
 public class MainActivity extends AppCompatActivity implements AddTaskPresenter.View{
 
     private AddTaskPresenter mPresenter;
-    LinearLayout linlaHeaderProgress;
+    LinearLayout linearLayoutProgress;
 
     @Override
     protected void onPause() {
@@ -31,11 +32,11 @@ public class MainActivity extends AppCompatActivity implements AddTaskPresenter.
 
         setContentView(R.layout.activitymain);
 
-        linlaHeaderProgress = (LinearLayout) findViewById(R.id.linlaHeaderProgress);
+        linearLayoutProgress = findViewById(R.id.linlaHeaderProgress);
 
         mPresenter = new AddTaskPresenterImpl(ThreadExecutor.getInstance(), MainThreadImpl.getInstance(), this);
 
-        mPresenter.addNewTask();
+        mPresenter.addNewTask("Title1", "Adding my First task", Calendar.getInstance().getTime());
     }
 
     @Override
@@ -51,12 +52,12 @@ public class MainActivity extends AppCompatActivity implements AddTaskPresenter.
 
     @Override
     public void showProgress() {
-        linlaHeaderProgress.setVisibility(View.VISIBLE);
+        linearLayoutProgress.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-        linlaHeaderProgress.setVisibility(View.GONE);
+        linearLayoutProgress.setVisibility(View.GONE);
     }
 
     @Override
