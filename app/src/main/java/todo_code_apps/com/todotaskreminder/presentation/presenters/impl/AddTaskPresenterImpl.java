@@ -43,14 +43,15 @@ public class AddTaskPresenterImpl extends AbstractPresenter implements
     }
 
     @Override
-    public void addNewTask(String title, String description, Date reminderDate) {
+    public void addNewTask(String title, String description, Date reminderDate, Date creationDate) {
 
         mAddTaskInteractor = new AddTaskInteractorImpl(mExecutor,
                 mMainThread,
                 this,
                 title,
                 description,
-                reminderDate);
+                reminderDate,
+                creationDate);
 
         mFuture = mAddTaskInteractor.execute();
 

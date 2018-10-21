@@ -3,6 +3,7 @@ package todo_code_apps.com.todotaskreminder.domain.interactors.base;
 import java.util.concurrent.Future;
 
 /**
+ * The methods that needs to be implemented by any interactor should be added here
  * Created by Revanth K on 18/10/18.
  */
 public interface Interactor {
@@ -12,5 +13,9 @@ public interface Interactor {
      */
     Future execute();
 
+    /**
+     * This is used to cancel an interactor operation
+     * @param future The Future object that was returned on executing interactor
+     */
     void cancel(Future future);
 }

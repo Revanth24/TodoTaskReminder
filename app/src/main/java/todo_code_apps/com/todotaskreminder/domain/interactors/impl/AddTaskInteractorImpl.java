@@ -13,10 +13,11 @@ import todo_code_apps.com.todotaskreminder.threading.MainThread;
  */
 public class AddTaskInteractorImpl extends AbstractInteractor implements AddTaskInteractor{
 
-    private AddTaskInteractor.AddTaskCallback mAddTaskCallback;
+    private AddTaskCallback mAddTaskCallback;
     private String mTitle;
     private String mDescription;
     private Date mReminderDate;
+    private Date mCreationDate;
 
     /**
      * Constructor of this class which will instantiate the main thread and thread executor variables
@@ -28,12 +29,14 @@ public class AddTaskInteractorImpl extends AbstractInteractor implements AddTask
                                  AddTaskCallback addTaskCallback,
                                  String title,
                                  String description,
-                                 Date reminderDate) {
+                                 Date reminderDate,
+                                 Date creationDate) {
         super(threadExecutor, mainThread);
         mAddTaskCallback = addTaskCallback;
         mTitle = title;
         mDescription = description;
         mReminderDate = reminderDate;
+        mCreationDate = creationDate;
     }
 
     private void notifyError(final String errMsg) {
@@ -48,7 +51,7 @@ public class AddTaskInteractorImpl extends AbstractInteractor implements AddTask
     @Override
     public void run() {
 
-        Task task = new Task(mTitle, mDescription, mReminderDate);
+        Task task = new Task(mTitle, mDescription, mReminderDate, mCreationDate);
 
         // Insert the task into the storage using the repository
 
