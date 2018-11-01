@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "460159338325",
+    "firebase_url": "https://todotaskreminder.firebaseio.com",
+    "project_id": "todotaskreminder",
+    "storage_bucket": "todotaskreminder.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:460159338325:android:c378ca4944059709",
+        "android_client_info": {
+          "package_name": "todo_code_apps.com.todotaskreminder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "460159338325-j8phgsk7p0pdjpucn27jodvm3ce0tnap.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTE1fovtKEZcJizLMJVmXyUJbfGa6ANC8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
