@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="todo_code_apps.com.todotaskreminder">
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.VIBRATE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,13 +16,28 @@
             android:screenOrientation="user">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.ui.activities.MainActivity"
-             />
+            android:name=".presentation.ui.activities.MainActivity">
+        </activity>
+        <activity
+            android:name=".presentation.ui.activities.SettingsActivity">
+        </activity>
+        <receiver
+            android:name=".receivers.AlarmReceiver" >
+        </receiver>
+        <service
+            android:name=".services.ReminderService"
+            android:exported="false">
+        </service>
+        <service
+            android:name=".services.TestJobScheduler"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:exported="true"
+            >
+        </service>
     </application>
 
 </manifest>

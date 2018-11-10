@@ -52,6 +52,8 @@ public class ThreadExecutor implements Executor {
 
     @Override
     public void cancel(Future future) {
+        if(future == null)
+            return;
         future.cancel(true);
         mThreadPoolExecutor.purge();
     }
