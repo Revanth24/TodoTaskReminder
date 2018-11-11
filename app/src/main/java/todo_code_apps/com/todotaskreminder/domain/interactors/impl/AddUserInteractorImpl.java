@@ -1,21 +1,18 @@
 package todo_code_apps.com.todotaskreminder.domain.interactors.impl;
 
-import android.support.annotation.NonNull;
-import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
+
 
 import todo_code_apps.com.todotaskreminder.domain.executor.base.Executor;
 import todo_code_apps.com.todotaskreminder.domain.interactors.AddUserInteractor;
 import todo_code_apps.com.todotaskreminder.domain.interactors.base.AbstractInteractor;
+import todo_code_apps.com.todotaskreminder.domain.model.GoogleLogin;
 import todo_code_apps.com.todotaskreminder.domain.model.Login;
 import todo_code_apps.com.todotaskreminder.domain.model.LoginListener;
+import todo_code_apps.com.todotaskreminder.domain.model.Signup;
 import todo_code_apps.com.todotaskreminder.threading.MainThread;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 
 public class AddUserInteractorImpl extends AbstractInteractor implements AddUserInteractor,LoginListener {
     private AddUserInteractor.AddTaskCallback mAddTastCallback;
@@ -27,21 +24,47 @@ public class AddUserInteractorImpl extends AbstractInteractor implements AddUser
      */
     String userName;
     String Password;
+    boolean login;
+    private GoogleSignInResult result;
 
 
-    public AddUserInteractorImpl(Executor threadExecutor, MainThread mainThread,AddTaskCallback addTaskCallback,String userName,String password) {
+    public AddUserInteractorImpl(Executor threadExecutor, MainThread mainThread,AddTaskCallback addTaskCallback,String userName,String password,boolean login,GoogleSignInResult result) {
         super(threadExecutor, mainThread);
         this.userName = userName;
         this.Password = password;
         mAddTastCallback = addTaskCallback;
+        this.login = login;
+        this.result= result;
 
     }
 
     @Override
     public void run() {
-        Login mLogin =new Login(userName,Password,this);
-        mLogin.authenticate();
-    }
+        if(result!=null)
+        {
+            if (result.isSuccess()) {
+                // successful -> authenticate with Firebase
+                GoogleSignInAccount account = result.getSignInAccount();
+                GoogleLogin mGoogleLogin = new GoogleLogin(this);
+                mGoogleLogin.firebaseAuthWithGoogle(account);
+            } else {
+                // failed -> update UI
+
+            }
+
+        }
+        else if(login) {
+            Login mLogin = new Login(userName, Password, this);
+            mLogin.authenticate();
+        }
+        else
+        {
+            Signup mSignup = new Signup(userName, Password, this);
+            mSignup.authenticate();
+
+            }
+
+        }
 
     @Override
     public void onSuccess() {

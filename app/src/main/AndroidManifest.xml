@@ -23,6 +23,12 @@
         <activity
             android:name=".presentation.ui.activities.MainActivity"
              />
+        <activity
+            android:name=".presentation.ui.activities.SignupActivity"
+            />
+        <activity
+            android:name=".presentation.ui.activities.ForgotPasswordActivity"
+            />
     </application>
 
 </manifest>

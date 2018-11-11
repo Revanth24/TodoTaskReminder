@@ -1,6 +1,10 @@
 package todo_code_apps.com.todotaskreminder.presentation.presenters.impl;
 
 
+
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+
 import java.util.concurrent.Future;
 import java.util.regex.Pattern;
 
@@ -15,6 +19,7 @@ public class ValidateLoginImpl extends AbstractPresenter implements
         AddUserInteractor.AddTaskCallback, ValidateLogin {
 
     private ValidateLogin.View mView;
+    private GoogleApiClient mGoogleApiClient;
 
     private static final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
@@ -40,7 +45,16 @@ public class ValidateLoginImpl extends AbstractPresenter implements
     }
 
     @Override
-    public void LoginVerify(String userName, String Password) {
+    public void GoogleLogin(GoogleSignInResult result) {
+        mAddUserInteractor = new AddUserInteractorImpl(mExecutor, mMainThread, this,null,null,false,result);
+
+        mFuture = mAddUserInteractor.execute();
+    }
+
+
+
+    @Override
+    public void LoginVerify(String userName, String Password,boolean login) {
         if(!validateUserName(userName))
         {
             mView.UsernameError();
@@ -51,7 +65,7 @@ public class ValidateLoginImpl extends AbstractPresenter implements
         }
         else
         {
-            mAddUserInteractor = new AddUserInteractorImpl(mExecutor, mMainThread, this,userName,Password);
+            mAddUserInteractor = new AddUserInteractorImpl(mExecutor, mMainThread, this,userName,Password,login,null);
 
             mFuture = mAddUserInteractor.execute();
 

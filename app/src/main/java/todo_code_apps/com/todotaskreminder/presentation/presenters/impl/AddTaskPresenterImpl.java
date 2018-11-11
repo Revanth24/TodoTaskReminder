@@ -9,6 +9,7 @@ import todo_code_apps.com.todotaskreminder.domain.interactors.AddTaskInteractor;
 import todo_code_apps.com.todotaskreminder.domain.interactors.impl.AddTaskInteractorImpl;
 import todo_code_apps.com.todotaskreminder.presentation.presenters.AddTaskPresenter;
 import todo_code_apps.com.todotaskreminder.presentation.presenters.base.AbstractPresenter;
+import todo_code_apps.com.todotaskreminder.presentation.ui.BaseView;
 import todo_code_apps.com.todotaskreminder.threading.MainThread;
 
 /**
@@ -94,4 +95,5 @@ public class AddTaskPresenterImpl extends AbstractPresenter implements
     public void detachView() {
         mView = null;
     }
+
 }

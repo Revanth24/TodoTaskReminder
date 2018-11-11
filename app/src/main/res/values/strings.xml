@@ -7,4 +7,15 @@
     <string name="MainActivityLabel">Yet to be named</string>
     <string name="title_activity_main2">Main2Activity</string>
 
+    <!--
+    Login Activity
+    -->
+    <string name="Email">Email</string>
+    <string name="Password">Password</string>
+    <string name="Forget_password">Forget Password</string>
+    <string name="Login">LOGIN</string>
+    <string name="Sign_Up">SIGN UP</string>
+    <string name="facebook_login">SIGN IN WITH FACEBOOK</string>
+    <string name="google_login">SIGN IN WITH GOOGLE</string>
+
 </resources>
