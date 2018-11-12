@@ -5,9 +5,10 @@ import java.util.Date;
 /**
  * Created by Revanth K on 18/10/18.
  */
-public class Task {
+public class Task
+{
 
-    private long   mId;
+    private String mId;
     private String mTitle;
     private String mDescription;
     private Date mReminderDate;
@@ -15,7 +16,7 @@ public class Task {
 
     public Task(String title, String description, Date reminderDate, Date creationDate)
     {
-        mId = new Date().getTime();
+        mId = Long.toString(new Date().getTime());
         mTitle = title;
         mDescription = description;
         mReminderDate = reminderDate;
@@ -34,7 +35,8 @@ public class Task {
         mReminderDate = reminderDate;
     }
 
-    public long getId() {
+    public String getId()
+    {
         return mId;
     }
 
