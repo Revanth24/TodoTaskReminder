@@ -7,6 +7,13 @@
     <string name="MainActivityLabel">Yet to be named</string>
     <string name="title_activity_main2">Main2Activity</string>
 
+
+    <string name="title_activity_settings">Settings</string>
+    <string name="title_pref_category_reminders">Reminders</string>
+    <string name="title_pref_snooze_time">Snooze Time</string>
+
+    <string name="sp_key_snooze_time">pref_key_snooze_time</string>
+
     <!--
     Login Activity
     -->
