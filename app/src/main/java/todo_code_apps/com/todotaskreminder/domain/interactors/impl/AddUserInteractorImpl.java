@@ -8,31 +8,26 @@ import todo_code_apps.com.todotaskreminder.domain.interactors.base.AbstractInter
 import todo_code_apps.com.todotaskreminder.domain.model.GoogleLogin;
 import todo_code_apps.com.todotaskreminder.domain.model.Login;
 import todo_code_apps.com.todotaskreminder.domain.model.LoginListener;
-import todo_code_apps.com.todotaskreminder.domain.model.Signup;
+import todo_code_apps.com.todotaskreminder.domain.model.SignUp;
 import todo_code_apps.com.todotaskreminder.threading.MainThread;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 
-public class AddUserInteractorImpl extends AbstractInteractor implements AddUserInteractor,LoginListener {
-    private AddUserInteractor.AddTaskCallback mAddTastCallback;
-    /**
-     * Constructor of this class which will instantiate the mMainThread and mThreadExecutor variables
-     *
-     * @param threadExecutor instance of thread executor
-     * @param mainThread     instance of main thread
-     */
-    String userName;
-    String Password;
-    boolean login;
+public class AddUserInteractorImpl extends AbstractInteractor implements AddUserInteractor, LoginListener {
+
+    private AddUserCallback mAddUserCallback;
+    private String userName;
+    private String Password;
+    private boolean login;
     private GoogleSignInResult result;
 
 
-    public AddUserInteractorImpl(Executor threadExecutor, MainThread mainThread,AddTaskCallback addTaskCallback,String userName,String password,boolean login,GoogleSignInResult result) {
+    public AddUserInteractorImpl(Executor threadExecutor, MainThread mainThread, AddUserCallback addUserCallback, String userName, String password, boolean login, GoogleSignInResult result) {
         super(threadExecutor, mainThread);
         this.userName = userName;
         this.Password = password;
-        mAddTastCallback = addTaskCallback;
+        this.mAddUserCallback = addUserCallback;
         this.login = login;
         this.result= result;
 
@@ -40,7 +35,7 @@ public class AddUserInteractorImpl extends AbstractInteractor implements AddUser
 
     @Override
     public void run() {
-        if(result!=null)
+        if(result != null)
         {
             if (result.isSuccess()) {
                 // successful -> authenticate with Firebase
@@ -59,8 +54,8 @@ public class AddUserInteractorImpl extends AbstractInteractor implements AddUser
         }
         else
         {
-            Signup mSignup = new Signup(userName, Password, this);
-            mSignup.authenticate();
+            SignUp mSignUp = new SignUp(userName, Password, this);
+            mSignUp.authenticate();
 
             }
 
@@ -68,11 +63,11 @@ public class AddUserInteractorImpl extends AbstractInteractor implements AddUser
 
     @Override
     public void onSuccess() {
-        mAddTastCallback.onUserAdded();
+        mAddUserCallback.onUserAdded();
     }
 
     @Override
     public void onFailure() {
-        mAddTastCallback.onUserNotAdded();
+        mAddUserCallback.onUserNotAdded();
     }
 }

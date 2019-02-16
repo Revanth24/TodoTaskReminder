@@ -35,6 +35,7 @@ public class LoginActivity extends AppCompatActivity implements ValidateLogin.Vi
     private Button loginbutton;
     private Button signup;
     private SignInButton GoogleLogin;
+    private LinearLayout linearLayoutProgress;
 
     //Presenter Declarations
     private ValidateLogin mLoginPresenter;
@@ -42,9 +43,7 @@ public class LoginActivity extends AppCompatActivity implements ValidateLogin.Vi
     private GoogleApiClient mGoogleApiClient;
     public String WEBCLIENTID="460159338325-j8phgsk7p0pdjpucn27jodvm3ce0tnap.apps.googleusercontent.com";
     private static final int REQUEST_CODE_SIGN_IN = 1234;
-    LinearLayout linlaHeaderProgress;
     private FirebaseAuth mAuth;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,7 +52,6 @@ public class LoginActivity extends AppCompatActivity implements ValidateLogin.Vi
         setContentView(R.layout.loginactivity);
         initViews();
         GoogleSignInFirebase();
-
 
         loginbutton.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
@@ -98,10 +96,11 @@ public class LoginActivity extends AppCompatActivity implements ValidateLogin.Vi
         loginbutton =(Button) findViewById(R.id.btn_login);
         GoogleLogin =(SignInButton) findViewById(R.id.btn_sign_in);
         signup = (Button)findViewById(R.id.link_signup);
+        linearLayoutProgress = findViewById(R.id.linlaHeaderProgress);
     }
 
     public void perform_action(View v) {
-        Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+        Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
         startActivity(intent);
     }
 
@@ -129,17 +128,15 @@ public class LoginActivity extends AppCompatActivity implements ValidateLogin.Vi
 
     @Override
     protected void onStart() {
-
-
         super.onStart();
+
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser!=null){
+        if(currentUser != null){
             Toast.makeText(this, currentUser.getEmail(), Toast.LENGTH_LONG).show();
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
         }
-
     }
 
     @Override
@@ -177,13 +174,11 @@ public class LoginActivity extends AppCompatActivity implements ValidateLogin.Vi
 
     @Override
     public void showProgress() {
-        linlaHeaderProgress.setVisibility(View.VISIBLE);
+        linearLayoutProgress.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void hideProgress() {
-
-    }
+    public void hideProgress() { linearLayoutProgress.setVisibility(View.GONE); }
 
     @Override
     public void showError(String message) {

@@ -6,17 +6,17 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class Signup {
+public class SignUp {
 
     private String UserName;
     private String Password;
     private LoginListener LoginCallback;
 
 
-    public Signup(String UserName, String Password, LoginListener mLoginCallback) {
+    public SignUp(String UserName, String Password, LoginListener mLoginCallback) {
         this.UserName = UserName;
         this.Password = Password;
-        LoginCallback = mLoginCallback;
+        this.LoginCallback = mLoginCallback;
     }
 
     public void authenticate() {

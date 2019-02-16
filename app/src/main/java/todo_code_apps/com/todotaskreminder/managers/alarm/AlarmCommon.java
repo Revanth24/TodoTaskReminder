@@ -76,6 +76,8 @@ public class AlarmCommon {
         else {
             alarmManager.set(AlarmManager.RTC_WAKEUP, timeInMills, alarmPendingIntent);
         }
+
+        Log.i(TAG, "Alarm set....");
     }
 
 

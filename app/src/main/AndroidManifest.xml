@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="todo_code_apps.com.todotaskreminder">
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -24,11 +25,30 @@
             android:name=".presentation.ui.activities.MainActivity"
              />
         <activity
-            android:name=".presentation.ui.activities.SignupActivity"
+            android:name=".presentation.ui.activities.SettingsActivity"
+            />
+        <activity
+            android:name=".presentation.ui.activities.SignUpActivity"
             />
         <activity
             android:name=".presentation.ui.activities.ForgotPasswordActivity"
             />
+
+        <receiver
+            android:name=".receivers.AlarmReceiver">
+        </receiver>
+
+        <service
+            android:name=".services.ReminderService"
+            android:exported="false">
+        </service>
+
+        <service
+            android:name=".services.TestJobScheduler"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE">
+        </service>
+
     </application>
 
 </manifest>

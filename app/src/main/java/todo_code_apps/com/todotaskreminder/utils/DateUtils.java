@@ -15,7 +15,7 @@ public class DateUtils {
     public static final int SECONDS = 3;
     public static final int MILLISECONDS = 4;
 
-    public static Date CreateDate(int day, int month, int year)
+    public static Date CreateDate(int year, int month, int day)
     {
         Calendar c = Calendar.getInstance();
 
@@ -34,6 +34,19 @@ public class DateUtils {
         Date resultDate = c.getTime();
         return resultDate;
 
+    }
+
+    public static Date setTime(Date date, int hour, int minute, int seconds, int milliSecs) {
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+
+        c.set(Calendar.HOUR_OF_DAY, hour);
+        c.set(Calendar.MINUTE, minute);
+        c.set(Calendar.SECOND, seconds);
+        c.set(Calendar.MILLISECOND, milliSecs);
+
+        return c.getTime();
     }
 
     public static Date CreateDate(int day, int month, int year, int hour, int minute, int seconds, int milliSecs)

@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import todo_code_apps.com.todotaskreminder.R;
@@ -14,21 +16,23 @@ import todo_code_apps.com.todotaskreminder.presentation.presenters.ValidateLogin
 import todo_code_apps.com.todotaskreminder.presentation.presenters.impl.ValidateLoginImpl;
 import todo_code_apps.com.todotaskreminder.threading.impl.MainThreadImpl;
 
-public class SignupActivity extends AppCompatActivity implements ValidateLogin.View {
+public class SignUpActivity extends AppCompatActivity implements ValidateLogin.View {
+
     private EditText userName;
     private EditText Password;
-    private Button signupButton;
+    private Button signUpButton;
     private ValidateLogin mPresenter;
+    private LinearLayout linearLayoutProgress;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signupactivity);
         initViews();
 
-        signupButton.setOnClickListener(new android.view.View.OnClickListener() {
+        signUpButton.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View v) {
-                mPresenter = new ValidateLoginImpl(ThreadExecutor.getInstance(), MainThreadImpl.getInstance(),SignupActivity.this);
+                mPresenter = new ValidateLoginImpl(ThreadExecutor.getInstance(), MainThreadImpl.getInstance(),SignUpActivity.this);
                 String mUserName = userName.getText().toString();
                 String mPassword = Password.getText().toString();
                 mPresenter.LoginVerify(mUserName,mPassword,false);
@@ -36,17 +40,18 @@ public class SignupActivity extends AppCompatActivity implements ValidateLogin.V
         });
     }
 
-
     private void initViews() {
 
-        userName =(EditText)findViewById(R.id.input_email);
-        Password =(EditText)findViewById(R.id.input_password);
-        signupButton =(Button) findViewById(R.id.btn_signup);
+        userName = findViewById(R.id.input_email);
+        Password = findViewById(R.id.input_password);
+        signUpButton = findViewById(R.id.btn_signup);
+        linearLayoutProgress = findViewById(R.id.linlaHeaderProgress);
     }
+
     @Override
     public void LoginDone() {
         Toast.makeText(this,"Done", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+        Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
         startActivity(intent);
     }
 
@@ -67,12 +72,12 @@ public class SignupActivity extends AppCompatActivity implements ValidateLogin.V
 
     @Override
     public void showProgress() {
-
+        linearLayoutProgress.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-
+        linearLayoutProgress.setVisibility(View.GONE);
     }
 
     @Override
